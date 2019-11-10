@@ -1,34 +1,36 @@
 package com.ciano.mongo.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.ciano.mongo.model.dto.AuthorDTO;
+
 @Document
-public class User implements Serializable {
+public class Post implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String id;
-	private String name;
-	private String email;
-	
-	@DBRef(lazy = true)
-	private List<Post> posts = new ArrayList<>();
+	private LocalDate date;
+	private String title;
+	private String body;
 
-	public User() {
+	private AuthorDTO author;
+
+	public Post() {
 		super();
 	}
 
-	public User(String id, String name, String email) {
+	public Post(String id, LocalDate date, String title, String body, AuthorDTO author) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.email = email;
+		this.date = date;
+		this.title = title;
+		this.body = body;
+		this.author = author;
 	}
 
 	public String getId() {
@@ -39,28 +41,36 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public LocalDate getDate() {
+		return date;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public List<Post> getPosts() {
-		return posts;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
+
+	public AuthorDTO getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(AuthorDTO author) {
+		this.author = author;
 	}
 
 	@Override
@@ -79,7 +89,7 @@ public class User implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Post other = (Post) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
